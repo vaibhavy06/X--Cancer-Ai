@@ -1,0 +1,27 @@
+# AI/ML
+torch
+torchvision
+torchaudio
+scikit-learn
+xgboost
+opencv-python
+numpy
+pandas
+matplotlib
+pillow
+
+# Explainability
+shap
+pytorch-gradcam
+
+# Backend
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic
+pydantic-settings
+
+# Utils
+python-dotenv
+requests
+tqdm
