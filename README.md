@@ -38,7 +38,7 @@ graph TD
 ### 2. Manual Setup
 ```bash
 # Clone & Setup Virtual Environment
-git clone https://github.com/Vaibhav062006/X-Cancer-AI.git
+git clone https://github.com/vaibhavy06/X--Cancer-Ai.git
 cd X-Cancer-AI
 python -m venv venv
 source venv/bin/activate  # venv\Scripts\activate on Windows
