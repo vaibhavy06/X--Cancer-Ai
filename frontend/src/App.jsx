@@ -18,13 +18,29 @@ function App() {
     formData.append('patient_data', JSON.stringify(patientData));
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
-      const response = await fetch(`${apiUrl}/api/v1/predict`, {
+      const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+      const apiUrl = import.meta.env.VITE_API_URL;
+      
+      if (isProduction && !apiUrl) {
+        throw new Error('API_URL_MISSING');
+      }
+
+      const finalApiUrl = apiUrl || 'http://127.0.0.1:8000';
+      
+      const response = await fetch(`${finalApiUrl}/api/v1/predict`, {
         method: 'POST',
         body: formData,
       });
       
+      if (!response.ok) throw new Error(`HTTP_${response.status}`);
+      
       const data = await response.json();
+      
+      if (data.status === 'rejected' || data.status === 'failed' || data.status === 'uncertain') {
+        alert(data.error);
+        return;
+      }
+
       setResult(data);
       
       // Scroll to result after a short delay
@@ -34,7 +50,13 @@ function App() {
       
     } catch (error) {
       console.error('Error predicting:', error);
-      alert('Connection Error: Is the backend server running at 127.0.0.1:8000?');
+      if (error.message === 'API_URL_MISSING') {
+        alert('Production Configuration Error: The backend API URL (VITE_API_URL) is not set in Netlify. Please set it in Site Settings > Environment Variables.');
+      } else if (error.message.startsWith('HTTP_')) {
+        alert(`Backend Error: The server returned ${error.message.split('_')[1]}. Please check your backend logs on Render.`);
+      } else {
+        alert('Connection Error: Could not reach the AI backend. Please verify your VITE_API_URL and ensure the backend is running.');
+      }
     } finally {
       setLoading(false);
     }

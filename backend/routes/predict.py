@@ -5,9 +5,11 @@ import io
 from PIL import Image
 import numpy as np
 from backend.services.inference import PredictionService
+import logging
 
 router = APIRouter()
 predictor = PredictionService()
+logger = logging.getLogger(__name__)
 
 @router.post("/predict")
 async def predict_risk(
@@ -20,6 +22,7 @@ async def predict_risk(
     try:
         # Parse patient data
         data_dict = json.loads(patient_data)
+        logger.info(f"Received prediction request for patient age: {data_dict.get('age')}")
         
         # Read image
         image_content = await image.read()

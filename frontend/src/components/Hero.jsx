@@ -51,39 +51,43 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Hero Illustration Placeholder */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, scale: 0.8, rotate: -2 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ 
+              duration: 1, 
+              type: "spring", 
+              stiffness: 100, 
+              damping: 20 
+            }}
             className="relative"
           >
-            <div className="aspect-square bg-white rounded-[2rem] border-4 border-white shadow-2xl overflow-hidden relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-medical-50 to-white"></div>
-              {/* Stylized UI Preview */}
-              <div className="absolute inset-8 border border-slate-100 rounded-2xl bg-white/50 backdrop-blur-sm p-6 shadow-inner">
-                 <div className="w-1/2 h-4 bg-slate-200 rounded-full mb-4"></div>
-                 <div className="w-3/4 h-4 bg-slate-100 rounded-full mb-8"></div>
-                 <div className="grid grid-cols-2 gap-4">
-                    <div className="h-24 bg-medical-100 rounded-xl animate-pulse"></div>
-                    <div className="h-24 bg-slate-50 rounded-xl"></div>
-                 </div>
-                 <div className="mt-6 space-y-3">
-                    <div className="h-2 w-full bg-slate-100 rounded-full"></div>
-                    <div className="h-2 w-5/6 bg-slate-100 rounded-full"></div>
-                 </div>
-              </div>
-              {/* Decorative elements */}
-              <div className="absolute bottom-4 right-4 bg-white p-4 rounded-2xl shadow-xl border border-slate-50 flex items-center gap-3">
-                <div className="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
-                   <Activity size={20} />
+            <div className="aspect-[4/3] rounded-[2.5rem] border-[12px] border-white shadow-2xl overflow-hidden relative group">
+              <img 
+                src="/hero_lab.png" 
+                alt="Medical Lab" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+              
+              {/* Floating Badge */}
+              <motion.div 
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50 flex items-center gap-3"
+              >
+                <div className="w-12 h-12 bg-medical-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-medical-200">
+                   <Activity size={24} />
                 </div>
                 <div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase">Risk Level</div>
-                  <div className="text-sm font-bold text-slate-800">LOW RISK</div>
+                  <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Live Diagnostics</div>
+                  <div className="text-base font-black text-slate-800">Processing...</div>
                 </div>
-              </div>
+              </motion.div>
             </div>
+            
+            {/* Background blur decorative element */}
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-medical-300 rounded-full blur-3xl opacity-30 -z-10"></div>
           </motion.div>
         </div>
       </div>

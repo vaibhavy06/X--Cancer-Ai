@@ -12,7 +12,41 @@ class PredictionService:
     def __init__(self):
         print("Using Mock Prediction Service (ML Dependencies not yet ready)")
 
+    def _classify_image_type(self, pil_image):
+        """
+        Gating Classifier: Checks if the image is a valid medical scan.
+        """
+        # Simulate logic: High saturation or very small images are rejected
+        img_np = np.array(pil_image.convert("RGB"))
+        saturation = np.mean(np.abs(img_np - np.mean(img_np, axis=2, keepdims=True)))
+        
+        if saturation > 40:
+             return "Non-medical", 0.3
+        
+        return "CT", 0.95
+
     def predict(self, pil_image, tabular_dict):
+        # STEP 1: Basic Validation
+        if pil_image is None:
+            return {"error": "❌ Invalid input", "status": "failed"}
+
+        # STEP 2: Medical Image Check (MANDATORY GATE)
+        image_type, conf = self._classify_image_type(pil_image)
+        
+        if image_type not in ["CT", "MRI", "X-ray", "Histopathology"]:
+            return {
+                "error": "❌ Rejected: Not a valid medical scan. Please upload a CT, MRI, or X-ray.",
+                "status": "rejected",
+                "details": {"detected_type": image_type, "confidence": conf}
+            }
+
+        if conf < 0.8:
+            return {
+                "error": "❌ Rejected: Low confidence in scan quality or modality.",
+                "status": "rejected",
+                "details": {"detected_type": image_type, "confidence": conf}
+            }
+
         # Simulate processing time
         time.sleep(1.5)
         

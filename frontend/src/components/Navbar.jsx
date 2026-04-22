@@ -23,9 +23,9 @@ const Navbar = () => {
             <a href="#" className="text-sm font-medium text-slate-600 hover:text-medical-500 transition-colors">Home</a>
             <a href="#analyze" className="text-sm font-medium text-slate-600 hover:text-medical-500 transition-colors">Analyze</a>
             <a href="#" className="text-sm font-medium text-slate-600 hover:text-medical-500 transition-colors">About</a>
-            <button className="bg-medical-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-medical-600 transition-all">
+            <a href="#analyze" className="bg-medical-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-medical-600 transition-all">
               Launch App
-            </button>
+            </a>
           </div>
 
           {/* Mobile Button */}
@@ -47,9 +47,9 @@ const Navbar = () => {
           <a href="#" className="block px-4 py-2 text-slate-600 font-medium">Home</a>
           <a href="#analyze" className="block px-4 py-2 text-slate-600 font-medium">Analyze</a>
           <a href="#" className="block px-4 py-2 text-slate-600 font-medium">About</a>
-          <button className="w-full bg-medical-500 text-white py-3 rounded-xl font-semibold">
+          <a href="#analyze" onClick={() => setIsOpen(false)} className="block w-full bg-medical-500 text-white py-3 rounded-xl font-semibold text-center">
             Launch App
-          </button>
+          </a>
         </motion.div>
       )}
     </nav>

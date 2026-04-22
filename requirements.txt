@@ -4,7 +4,7 @@ torchvision
 torchaudio
 scikit-learn
 xgboost
-opencv-python
+opencv-python-headless
 numpy
 pandas
 matplotlib
@@ -12,11 +12,12 @@ pillow
 
 # Explainability
 shap
-pytorch-gradcam
+grad-cam
 
 # Backend
 fastapi
 uvicorn[standard]
+gunicorn
 python-multipart
 pydantic
 pydantic-settings
@@ -24,4 +25,5 @@ pydantic-settings
 # Utils
 python-dotenv
 requests
+httpx
 tqdm
